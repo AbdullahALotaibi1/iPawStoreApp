@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="phS-OC-RvG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lss-sx-bYl">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -13,6 +13,9 @@
         </array>
         <array key="DINNextLTArabic-Bold.ttf">
             <string>DINNextLTArabic-Bold</string>
+        </array>
+        <array key="DINNextLTArabic-Medium.ttf">
+            <string>DINNextLTArabic-Medium</string>
         </array>
         <array key="DINNextLTArabic-Regular.ttf">
             <string>DINNextLTArabic-Regular</string>
@@ -107,6 +110,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1435" y="211"/>
+        </scene>
+        <!--Login View-->
+        <scene sceneID="AD1-Ty-bEJ">
+            <objects>
+                <viewController id="Lss-sx-bYl" customClass="LoginView" customModule="iPawStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cmj-3v-QVv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ipawLogo" translatesAutoresizingMaskIntoConstraints="NO" id="YwK-C6-lgz">
+                                <rect key="frame" x="136.5" y="138" width="141" height="141"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="141" id="RME-3b-5S2"/>
+                                    <constraint firstAttribute="height" constant="141" id="fhb-pF-ky0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="التحقق من udid الخاص بك,  الرجاء الضغط على رز تحقق ثم اكمال خطوات تثبيت البروفايل وسيتم ارجعك مرة خرى بعد التحقق " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuu-GD-zk0">
+                                <rect key="frame" x="20" y="346" width="374" height="71"/>
+                                <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Wr-i8-pcv">
+                                <rect key="frame" x="107" y="467" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.035294117649999998" green="0.38823529410000002" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Wly-8V-3eM"/>
+                                    <constraint firstAttribute="width" constant="200" id="xYS-ZK-MQY"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="تحقق">
+                                            <attributes>
+                                                <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <font key="NSFont" size="18" name="DINNextLTArabic-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" maximumLineHeight="22" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="اهلاً بك في iPaw Store ✨" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMg-Cz-pnC">
+                                <rect key="frame" x="20" y="299" width="374" height="31"/>
+                                <fontDescription key="fontDescription" name="DINNextLTArabic-Medium" family="DIN Next LT Arabic" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.16470588235294117" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="8Wr-i8-pcv" firstAttribute="centerX" secondItem="cmj-3v-QVv" secondAttribute="centerX" id="3zs-Sd-ru8"/>
+                            <constraint firstItem="8Wr-i8-pcv" firstAttribute="top" secondItem="zuu-GD-zk0" secondAttribute="bottom" constant="50" id="GAq-bc-0Aj"/>
+                            <constraint firstItem="Wny-VE-WKg" firstAttribute="trailing" secondItem="zuu-GD-zk0" secondAttribute="trailing" constant="20" id="L6v-aW-cCY"/>
+                            <constraint firstItem="BMg-Cz-pnC" firstAttribute="top" secondItem="YwK-C6-lgz" secondAttribute="bottom" constant="20" id="P80-go-ndi"/>
+                            <constraint firstItem="zuu-GD-zk0" firstAttribute="top" secondItem="BMg-Cz-pnC" secondAttribute="bottom" constant="16" id="TSQ-Uq-PRe"/>
+                            <constraint firstItem="BMg-Cz-pnC" firstAttribute="leading" secondItem="Wny-VE-WKg" secondAttribute="leading" constant="20" id="Vcj-mx-hVM"/>
+                            <constraint firstItem="Wny-VE-WKg" firstAttribute="trailing" secondItem="BMg-Cz-pnC" secondAttribute="trailing" constant="20" id="c2Q-oN-cB7"/>
+                            <constraint firstItem="zuu-GD-zk0" firstAttribute="leading" secondItem="Wny-VE-WKg" secondAttribute="leading" constant="20" id="kE6-YS-iha"/>
+                            <constraint firstItem="YwK-C6-lgz" firstAttribute="centerX" secondItem="cmj-3v-QVv" secondAttribute="centerX" id="mNm-8w-u0j"/>
+                            <constraint firstItem="YwK-C6-lgz" firstAttribute="top" secondItem="Wny-VE-WKg" secondAttribute="top" constant="94" id="p59-xq-23X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wny-VE-WKg"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCheckOutLet" destination="8Wr-i8-pcv" id="Fpw-p8-M1q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nBE-qt-dEu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1510.144927536232" y="576.5625"/>
         </scene>
         <!--الرئيسية-->
         <scene sceneID="j0f-kx-Hyo">
@@ -255,22 +328,22 @@
                                         <rect key="frame" x="28" y="108" width="358" height="80.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fhI-nZ-fza">
-                                                <rect key="frame" x="0.0" y="0.0" width="277" height="80.5"/>
+                                                <rect key="frame" x="0.0" y="7" width="277" height="66.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="عبدالله العتيبي" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H97-aa-vai">
-                                                        <rect key="frame" x="193" y="0.0" width="84" height="22.5"/>
+                                                        <rect key="frame" x="202" y="0.0" width="75" height="17.5"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="رقم الجهاز: 00008020-001A751E02F9002E" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Xr-0n-ufv">
-                                                        <rect key="frame" x="28" y="30.5" width="249" height="21"/>
+                                                        <rect key="frame" x="23" y="25.5" width="254" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="0.85319456335616439" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="المجموعة: المجموعة 39" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-sI-uxw">
-                                                        <rect key="frame" x="147" y="59.5" width="130" height="21"/>
+                                                        <rect key="frame" x="170.5" y="50" width="106.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="0.85319456339999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -312,16 +385,16 @@
                                                         <rect key="frame" x="20" y="10" width="334" height="53"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="UZl-6w-sSa">
-                                                                <rect key="frame" x="0.0" y="1" width="298" height="51"/>
+                                                                <rect key="frame" x="0.0" y="6" width="298" height="41"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="لوحة التحكم" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyg-Au-h2I">
-                                                                        <rect key="frame" x="220.5" y="0.0" width="77.5" height="25"/>
+                                                                        <rect key="frame" x="229" y="0.0" width="69" height="20"/>
                                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="17"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="يمكنك التحكم في كامل المتجر من هنا" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9dg-NU-lvQ">
-                                                                        <rect key="frame" x="117.5" y="26" width="180.5" height="25"/>
+                                                                        <rect key="frame" x="132" y="21" width="166" height="20"/>
                                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Light" family="DIN Next LT Arabic" pointSize="13"/>
                                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -395,22 +468,22 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Cqs-oX-itT">
-                                                <rect key="frame" x="20" y="430" width="374" height="80"/>
+                                                <rect key="frame" x="20" y="445" width="374" height="65"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="جميع الحقوق محفوضة iPaw Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tn-cM-OkU">
-                                                        <rect key="frame" x="78.5" y="0.0" width="217" height="24"/>
+                                                        <rect key="frame" x="83.5" y="0.0" width="206.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="عمل بواسطة عبدالله العتيبي" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2k-2q-H4t">
-                                                        <rect key="frame" x="111" y="28" width="151.5" height="24"/>
+                                                        <rect key="frame" x="120.5" y="23" width="133" height="19"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="اصدار التطبيق: 1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7R4-Ek-516">
-                                                        <rect key="frame" x="138" y="56" width="97.5" height="24"/>
+                                                        <rect key="frame" x="137" y="46" width="100" height="19"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTArabic-Regular" family="DIN Next LT Arabic" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="0.77932363013698636" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>

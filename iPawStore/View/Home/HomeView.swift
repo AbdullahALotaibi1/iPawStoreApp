@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CFAlertViewController
+import MBProgressHUD
+import RLBAlertsPickers
 
 class HomeView: UIViewController {
     
@@ -92,6 +95,16 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         
         return 88
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            downloadFromUrl()
+        }
+        if indexPath.row >= 3 {
+            alertInstallApp(id: 1)
+            print(indexPath.row)
+        }
+    }
 }
 
 
@@ -112,4 +125,184 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         return CGSize(width: 94, height: 100)
     }
     
+}
+
+
+// MARK: - Function Install + Resign Apps
+extension HomeView {
+    
+    func alertInstallApp(id appID: Int){
+            DispatchQueue.main.async {
+            // Create Alet View Controller
+            let alertController = CFAlertViewController(title: "Youtube ++",
+                                                        message: "يمكن تثبيت تطبيق (اسم التطبيق) مباشرة او تعديل اسم التطبيق او تعديل بندل التطبيق وتكرار التطبيق لاكثر من نسخة.",
+                                                        textAlignment: .right,
+                                                        preferredStyle: .actionSheet,
+                                                        didDismissAlertHandler: nil)
+
+            // Create Upgrade Action
+            let installAction = CFAlertAction(title: "تثبيت",
+                                              style: .Default,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#018083"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                // MARK: - Prepare Url Install
+                                                let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                                                loadingNotification.mode = MBProgressHUDMode.indeterminate
+                                                loadingNotification.label.text = "جاري تحضير (Youtube++)..."
+            })
+            
+            let resignAction = CFAlertAction(title: "تعديل وتكرار",
+                                              style: .Default,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#1E76F3"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                self.setAppName()
+                                                print("Button with title '" + action.title! + "' tapped")
+            })
+                
+                
+                
+            
+            let cancelAction = CFAlertAction(title: "اغلاق",
+                                             style: .Cancel,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#dddddd"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                print("Button with title '" + action.title! + "' tapped")
+            })
+            
+            // Add Action Button Into Alert
+            alertController.addAction(installAction)
+            alertController.addAction(resignAction)
+            alertController.addAction(cancelAction)
+
+            // Present Alert View Controller
+                self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func setAppName(){
+         DispatchQueue.main.async {
+        let alert = UIAlertController(style: .actionSheet, title: "اسم التطبيق", message: "في حال تركت اسم التطبيق فارغ سيتم اخذ اسم التطبيق الافتراضي")
+        let config: TextField.Config = { textField in
+        textField.becomeFirstResponder()
+        textField.textColor = .black
+        textField.placeholder = "مثال: Youtube Test"
+        textField.leftViewPadding = 12
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+        textField.backgroundColor = nil
+        textField.keyboardAppearance = .default
+        textField.keyboardType = .default
+        textField.isSecureTextEntry = false
+        textField.returnKeyType = .done
+        textField.textAlignment = .right
+        textField.action { textField in
+            // validation and so on
+            print(textField.text)
+        }
+    }
+    alert.addOneTextField(configuration: config)
+    alert.addAction(title: "OK", style: .cancel) {
+        action in
+        self.setAppBundle()
+    }
+    alert.show()
+        }
+    }
+    
+    func setAppBundle(){
+         DispatchQueue.main.async {
+        let alert = UIAlertController(style: .actionSheet, title: " بندل التطبيق", message: "في حال تركت بندل التطبيق فارغ سيتم اخذ بندل التطبيق الافتراضي وتعديلة بحيث لا يتعارض مع البندل الاصلي")
+        let config: TextField.Config = { textField in
+        textField.becomeFirstResponder()
+        textField.textColor = .black
+        textField.placeholder = "مثال: com.abduallah.iPawStore"
+        textField.leftViewPadding = 12
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+        textField.backgroundColor = nil
+        textField.keyboardAppearance = .default
+        textField.keyboardType = .default
+        textField.isSecureTextEntry = false
+        textField.returnKeyType = .done
+        textField.textAlignment = .right
+        textField.action { textField in
+            // validation and so on
+            print(textField.text)
+        }
+    }
+    alert.addOneTextField(configuration: config)
+    alert.addAction(title: "OK", style: .cancel) {
+        action in
+        self.setNumberOfRepet()
+    }
+    alert.show()
+        }
+    }
+    
+    func setNumberOfRepet() {
+        let alert = UIAlertController(style: .actionSheet, title: "عدد نسخ التكرار")
+
+        let frameSizes: [CGFloat] = (1...5).map { CGFloat($0) }
+        let pickerViewValues: [[String]] = [frameSizes.map { Int($0).description }]
+        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: 216) ?? 0)
+
+        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 1) {
+//                    //
+                    // MARK: - Prepare Url Install
+                    let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    loadingNotification.mode = MBProgressHUDMode.indeterminate
+                    loadingNotification.label.text = "جاري توقيع (اسم التطبيق)..."
+                }
+            }
+        }
+        alert.addAction(title: "Done", style: .cancel)
+        alert.show()
+    }
+    
+    
+    func downloadFromUrl(){
+             DispatchQueue.main.async {
+                let alert = UIAlertController(style: .actionSheet, title: "التحميل من خارج المتجر", message: "قم بلصق او كتابة رابط التطبيق وعليك التاكد من صحة الرابط قبل تحميلة")
+                let config: TextField.Config = { textField in
+                textField.becomeFirstResponder()
+                textField.textColor = .white
+                textField.placeholder = "مثال: example.com/youtube.ipa"
+                textField.leftViewPadding = 12
+                textField.layer.borderWidth = 1
+                textField.layer.cornerRadius = 8
+                textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+                textField.backgroundColor = nil
+                textField.keyboardAppearance = .default
+                textField.keyboardType = .default
+                textField.isSecureTextEntry = false
+                textField.returnKeyType = .done
+                textField.textAlignment = .right
+                textField.action { textField in
+                    // validation and so on
+                    print(textField.text)
+                }
+            }
+            alert.addOneTextField(configuration: config)
+            alert.addAction(title: "OK", style: .cancel) {
+                action in
+                
+                        // MARK: - Prepare Url Install
+                        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                        loadingNotification.mode = MBProgressHUDMode.indeterminate
+                        loadingNotification.label.text = "جاري تحميل وتوقيع. وقد يستغرق بعض الوقت"
+
+            }
+            alert.show()
+                }
+    }
 }

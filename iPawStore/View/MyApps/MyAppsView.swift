@@ -23,6 +23,7 @@ class MyAppsView: UIViewController {
         filteredData = appsData
         setupTableView()
         setupSearchBar()
+        hideKeyboardWhenTappedAround()
     }
 }
 
@@ -70,7 +71,6 @@ extension MyAppsView: UITableViewDelegate, UITableViewDataSource {
 
 
 //MARK: - Search Bar
-
 extension MyAppsView: UISearchBarDelegate {
     
     func setupSearchBar() {
@@ -91,5 +91,19 @@ extension MyAppsView: UISearchBarDelegate {
         }
         
         self.tableViewOutLet.reloadData()
+    }
+}
+
+
+// Put this piece of code anywhere you like
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

@@ -1,0 +1,24 @@
+PODS:
+  - CFAlertViewController (3.1)
+  - MBProgressHUD (1.2.0)
+  - RLBAlertsPickers (1.1.2)
+
+DEPENDENCIES:
+  - CFAlertViewController
+  - MBProgressHUD
+  - RLBAlertsPickers
+
+SPEC REPOS:
+  trunk:
+    - CFAlertViewController
+    - MBProgressHUD
+    - RLBAlertsPickers
+
+SPEC CHECKSUMS:
+  CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  RLBAlertsPickers: 2548943b0cb16620904cbd926a645362d1b43963
+
+PODFILE CHECKSUM: f47a1270185e5d0fced1f6a93d7f7be60b97d980
+
+COCOAPODS: 1.9.1

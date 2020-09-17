@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B606F0F9C19134FEB1CCF3C /* Pods_iPawStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AED617988BDC77F43E32BD6B /* Pods_iPawStore.framework */; };
 		B841BE16250EF9EA00D9B70C /* DINNextLTArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8FBC741250EF2D80028441E /* DINNextLTArabic-Bold.ttf */; };
 		B841BE17250EF9EA00D9B70C /* DINNextLTArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8FBC744250EF2D80028441E /* DINNextLTArabic-Medium.ttf */; };
 		B841BE18250EF9EA00D9B70C /* DINNextLTArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8FBC743250EF2D80028441E /* DINNextLTArabic-Regular.ttf */; };
@@ -29,6 +30,8 @@
 		B894E6662510A67000271E51 /* AppsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E6652510A67000271E51 /* AppsModel.swift */; };
 		B894E66925122F2F00271E51 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E66825122F2F00271E51 /* SettingsView.swift */; };
 		B894E66C25123DF400271E51 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E66B25123DF400271E51 /* DashboardView.swift */; };
+		B8E552BE2512A5CE00215441 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E552BD2512A5CE00215441 /* LoginView.swift */; };
+		B8E552C02512AB6E00215441 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E552BF2512AB6E00215441 /* UserDefaults.swift */; };
 		B8FBC724250EEEEB0028441E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBC723250EEEEB0028441E /* AppDelegate.swift */; };
 		B8FBC726250EEEEB0028441E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBC725250EEEEB0028441E /* SceneDelegate.swift */; };
 		B8FBC72B250EEEEB0028441E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8FBC729250EEEEB0028441E /* Main.storyboard */; };
@@ -38,6 +41,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		126DF653B1A76D14C3E1A535 /* Pods-iPawStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPawStore.debug.xcconfig"; path = "Target Support Files/Pods-iPawStore/Pods-iPawStore.debug.xcconfig"; sourceTree = "<group>"; };
+		86CDA381EFFB8675380A8A7B /* Pods-iPawStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPawStore.release.xcconfig"; path = "Target Support Files/Pods-iPawStore/Pods-iPawStore.release.xcconfig"; sourceTree = "<group>"; };
+		AED617988BDC77F43E32BD6B /* Pods_iPawStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iPawStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B841BE1C250EFB9800D9B70C /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B841BE1E250EFF3C00D9B70C /* DINNEXTLTARABIC-LIGHT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNEXTLTARABIC-LIGHT.ttf"; sourceTree = "<group>"; };
 		B841BE20250F013A00D9B70C /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 		B894E6652510A67000271E51 /* AppsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsModel.swift; sourceTree = "<group>"; };
 		B894E66825122F2F00271E51 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B894E66B25123DF400271E51 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B8E552BD2512A5CE00215441 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B8E552BF2512AB6E00215441 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		B8FBC720250EEEEB0028441E /* iPawStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPawStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FBC723250EEEEB0028441E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8FBC725250EEEEB0028441E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,18 +83,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B606F0F9C19134FEB1CCF3C /* Pods_iPawStore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2093AEDF90390765C0BE5B6F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				126DF653B1A76D14C3E1A535 /* Pods-iPawStore.debug.xcconfig */,
+				86CDA381EFFB8675380A8A7B /* Pods-iPawStore.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B841BE1A250EFB6F00D9B70C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				B841BE1C250EFB9800D9B70C /* UIView.swift */,
 				B841BE20250F013A00D9B70C /* UIColor.swift */,
 				B894E6632510A3F500271E51 /* UIImage.swift */,
+				B8E552BF2512AB6E00215441 /* UserDefaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -179,11 +198,21 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
+		B8E552BC2512A5B700215441 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				B8E552BD2512A5CE00215441 /* LoginView.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
 		B8FBC717250EEEEA0028441E = {
 			isa = PBXGroup;
 			children = (
 				B8FBC722250EEEEB0028441E /* iPawStore */,
 				B8FBC721250EEEEB0028441E /* Products */,
+				2093AEDF90390765C0BE5B6F /* Pods */,
+				C290D3CD1606B6FD07911087 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				B894E66A25123DDD00271E51 /* Dashboard */,
+				B8E552BC2512A5B700215441 /* LoginView */,
 				B894E66725122F1900271E51 /* Settings */,
 				B894E66025109B5600271E51 /* MyApps */,
 				B8FBC73D250EF1BE0028441E /* Home */,
@@ -285,6 +315,14 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		C290D3CD1606B6FD07911087 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AED617988BDC77F43E32BD6B /* Pods_iPawStore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -292,9 +330,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8FBC734250EEEED0028441E /* Build configuration list for PBXNativeTarget "iPawStore" */;
 			buildPhases = (
+				880A3273EC301A394D1BB28F /* [CP] Check Pods Manifest.lock */,
 				B8FBC71C250EEEEB0028441E /* Sources */,
 				B8FBC71D250EEEEB0028441E /* Frameworks */,
 				B8FBC71E250EEEEB0028441E /* Resources */,
+				BE857012F6600D663269E5F5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -361,6 +401,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		880A3273EC301A394D1BB28F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iPawStore-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE857012F6600D663269E5F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iPawStore/Pods-iPawStore-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iPawStore/Pods-iPawStore-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iPawStore/Pods-iPawStore-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B8FBC71C250EEEEB0028441E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -371,6 +453,7 @@
 				B8FBC73F250EF1EA0028441E /* HomeView.swift in Sources */,
 				B8FBC724250EEEEB0028441E /* AppDelegate.swift in Sources */,
 				B8FBC726250EEEEB0028441E /* SceneDelegate.swift in Sources */,
+				B8E552C02512AB6E00215441 /* UserDefaults.swift in Sources */,
 				B841BE2B250F0AA700D9B70C /* LastAddedAppsCell.swift in Sources */,
 				B841BE26250F032D00D9B70C /* ButtonResignOutAppCell.swift in Sources */,
 				B894E66C25123DF400271E51 /* DashboardView.swift in Sources */,
@@ -380,6 +463,7 @@
 				B841BE31250F0CA700D9B70C /* LastAddedAppsCollectionCell.swift in Sources */,
 				B894E6642510A3F500271E51 /* UIImage.swift in Sources */,
 				B841BE21250F013A00D9B70C /* UIColor.swift in Sources */,
+				B8E552BE2512A5CE00215441 /* LoginView.swift in Sources */,
 				B894E65E2510911200271E51 /* ListAppCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +606,7 @@
 		};
 		B8FBC735250EEEED0028441E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 126DF653B1A76D14C3E1A535 /* Pods-iPawStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -541,6 +626,7 @@
 		};
 		B8FBC736250EEEED0028441E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86CDA381EFFB8675380A8A7B /* Pods-iPawStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
