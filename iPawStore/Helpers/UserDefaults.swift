@@ -19,9 +19,32 @@ extension UserDefaults {
     func getUserUDID() -> String {
         return string(forKey: UserDefaultsKeys.userUDID.rawValue)!
     }
+
     
+    func setFullName(value: String){
+        set(value, forKey: UserDefaultsKeys.fullName.rawValue)
+    }
+
+    //MARK: Retrieve User Data
+    func getFullName() -> String {
+        return string(forKey: UserDefaultsKeys.fullName.rawValue)!
+    }
+    
+    func setGroupName(value: String){
+        set(value, forKey: UserDefaultsKeys.groupName.rawValue)
+    }
+
+    //MARK: Retrieve User Data
+    func getGroupName() -> String {
+        return string(forKey: UserDefaultsKeys.groupName.rawValue)!
+    }
+
+    
+    func hasValueUserUDID() -> Bool {
+            return nil != object(forKey: UserDefaultsKeys.userUDID.rawValue)
+    }
 }
 
 enum UserDefaultsKeys : String {
-    case userUDID
+    case userUDID, fullName, groupName
 }

@@ -10,17 +10,41 @@ import UIKit
 import CFAlertViewController
 import MBProgressHUD
 import RLBAlertsPickers
+import SCLAlertView
 
 class HomeView: UIViewController {
     
     // MARK: - OutLet Variables
+    @IBOutlet weak var titleMessage: UILabel! { didSet{ titleMessage.text = " اهلاً بك في \(Config.title) ✨" }}
     @IBOutlet weak var navigationHeaderOutLet: UIView! { didSet{ navigationHeaderOutLet.roundCorners([.bottomLeft, .bottomRight], radius: 42) } }
     @IBOutlet weak var WelcomeMessageOutLet: UIView! { didSet{ WelcomeMessageOutLet.layer.cornerRadius = 17 } }
     @IBOutlet weak var tableViewOutLet: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = Config.title
+        loadingAlert()
         setupTableView()
+        HomeViewModel.geLastAddedApps(){ statusLogin, message in
+           
+            if statusLogin == true {
+                
+                HomeViewModel.getRandomApps(){ statusLogin, message in
+                   
+                    if statusLogin == true {
+                        self.hideAlert()
+                        self.tableViewOutLet.reloadData()
+                    }else{
+                        self.hideAlert()
+                        self.serverMessage(status: statusLogin!, message: message!)
+                    }
+                }
+                
+            }else{
+                self.hideAlert()
+                self.serverMessage(status: statusLogin!, message: message!)
+            }
+        }
     }
 }
 
@@ -44,7 +68,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 28
+        return 3 + HomeViewModel.randomApp.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,6 +82,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             let lastAddedAppsCell = tableView.dequeueReusableCell(withIdentifier: "LastAddedAppsCell", for: indexPath) as! LastAddedAppsCell
             lastAddedAppsCell.collectionViewOutLet.delegate = self
             lastAddedAppsCell.collectionViewOutLet.dataSource = self
+            lastAddedAppsCell.collectionViewOutLet.reloadData()
             return lastAddedAppsCell
         }
         
@@ -68,6 +93,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         
         
         let listAppCell = tableView.dequeueReusableCell(withIdentifier: "ListAppCell", for: indexPath) as! ListAppCell
+        listAppCell.update(app: HomeViewModel.randomApp[indexPath.row - 3])
         return listAppCell
        
         
@@ -101,8 +127,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             downloadFromUrl()
         }
         if indexPath.row >= 3 {
-            alertInstallApp(id: 1)
-            print(indexPath.row)
+            alertInstallApp(id: indexPath.row - 3)
         }
     }
 }
@@ -112,17 +137,21 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return HomeViewModel.lastAddedApp.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let lastAddedAppsCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LastAddedAppsCollectionCell", for: indexPath) as! LastAddedAppsCollectionCell
-        
+        lastAddedAppsCollectionCell.update(app: HomeViewModel.lastAddedApp[indexPath.row])
         return lastAddedAppsCollectionCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 94, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        alertInstallAppCollectionView(id: indexPath.row)
     }
     
 }
@@ -134,8 +163,8 @@ extension HomeView {
     func alertInstallApp(id appID: Int){
             DispatchQueue.main.async {
             // Create Alet View Controller
-            let alertController = CFAlertViewController(title: "Youtube ++",
-                                                        message: "يمكن تثبيت تطبيق (اسم التطبيق) مباشرة او تعديل اسم التطبيق او تعديل بندل التطبيق وتكرار التطبيق لاكثر من نسخة.",
+                let alertController = CFAlertViewController(title: HomeViewModel.randomApp[appID].appName,
+                                                        message: "يمكن تثبيت تطبيق \(HomeViewModel.randomApp[appID].appName!) مباشرة او تعديل اسم التطبيق او تعديل بندل التطبيق وتكرار التطبيق لاكثر من نسخة.",
                                                         textAlignment: .right,
                                                         preferredStyle: .actionSheet,
                                                         didDismissAlertHandler: nil)
@@ -150,7 +179,9 @@ extension HomeView {
                                                 // MARK: - Prepare Url Install
                                                 let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
                                                 loadingNotification.mode = MBProgressHUDMode.indeterminate
-                                                loadingNotification.label.text = "جاري تحضير (Youtube++)..."
+                                                loadingNotification.label.text = "جاري تحضير \(HomeViewModel.randomApp[appID].appName!)..."
+                                                self.installDirc(id: appID)
+                                                
             })
             
             let resignAction = CFAlertAction(title: "تعديل وتكرار",
@@ -159,8 +190,7 @@ extension HomeView {
                                               backgroundColor: UIColor(hex: "#1E76F3"),
                                               textColor: nil,
                                               handler: { (action) in
-                                                self.setAppName()
-                                                print("Button with title '" + action.title! + "' tapped")
+                                                self.setAppName(appID: appID)
             })
                 
                 
@@ -185,124 +215,284 @@ extension HomeView {
         }
     }
     
-    func setAppName(){
-         DispatchQueue.main.async {
-        let alert = UIAlertController(style: .actionSheet, title: "اسم التطبيق", message: "في حال تركت اسم التطبيق فارغ سيتم اخذ اسم التطبيق الافتراضي")
-        let config: TextField.Config = { textField in
-        textField.becomeFirstResponder()
-        textField.textColor = .black
-        textField.placeholder = "مثال: Youtube Test"
-        textField.leftViewPadding = 12
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
-        textField.backgroundColor = nil
-        textField.keyboardAppearance = .default
-        textField.keyboardType = .default
-        textField.isSecureTextEntry = false
-        textField.returnKeyType = .done
-        textField.textAlignment = .right
-        textField.action { textField in
-            // validation and so on
-            print(textField.text)
-        }
-    }
-    alert.addOneTextField(configuration: config)
-    alert.addAction(title: "OK", style: .cancel) {
-        action in
-        self.setAppBundle()
-    }
-    alert.show()
-        }
-    }
-    
-    func setAppBundle(){
-         DispatchQueue.main.async {
-        let alert = UIAlertController(style: .actionSheet, title: " بندل التطبيق", message: "في حال تركت بندل التطبيق فارغ سيتم اخذ بندل التطبيق الافتراضي وتعديلة بحيث لا يتعارض مع البندل الاصلي")
-        let config: TextField.Config = { textField in
-        textField.becomeFirstResponder()
-        textField.textColor = .black
-        textField.placeholder = "مثال: com.abduallah.iPawStore"
-        textField.leftViewPadding = 12
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
-        textField.backgroundColor = nil
-        textField.keyboardAppearance = .default
-        textField.keyboardType = .default
-        textField.isSecureTextEntry = false
-        textField.returnKeyType = .done
-        textField.textAlignment = .right
-        textField.action { textField in
-            // validation and so on
-            print(textField.text)
-        }
-    }
-    alert.addOneTextField(configuration: config)
-    alert.addAction(title: "OK", style: .cancel) {
-        action in
-        self.setNumberOfRepet()
-    }
-    alert.show()
-        }
-    }
-    
-    func setNumberOfRepet() {
-        let alert = UIAlertController(style: .actionSheet, title: "عدد نسخ التكرار")
-
-        let frameSizes: [CGFloat] = (1...5).map { CGFloat($0) }
-        let pickerViewValues: [[String]] = [frameSizes.map { Int($0).description }]
-        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: 216) ?? 0)
-
-        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+    func alertInstallAppCollectionView(id appID: Int){
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 1) {
-//                    //
-                    // MARK: - Prepare Url Install
-                    let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    loadingNotification.mode = MBProgressHUDMode.indeterminate
-                    loadingNotification.label.text = "جاري توقيع (اسم التطبيق)..."
-                }
-            }
+            // Create Alet View Controller
+                let alertController = CFAlertViewController(title: HomeViewModel.lastAddedApp[appID].appName,
+                                                        message: "يمكن تثبيت تطبيق \(HomeViewModel.lastAddedApp[appID].appName!) مباشرة او تعديل اسم التطبيق او تعديل بندل التطبيق وتكرار التطبيق لاكثر من نسخة.",
+                                                        textAlignment: .right,
+                                                        preferredStyle: .actionSheet,
+                                                        didDismissAlertHandler: nil)
+
+            // Create Upgrade Action
+            let installAction = CFAlertAction(title: "تثبيت",
+                                              style: .Default,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#018083"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                // MARK: - Prepare Url Install
+                                                let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                                                loadingNotification.mode = MBProgressHUDMode.indeterminate
+                                                loadingNotification.label.text = "جاري تحضير \(HomeViewModel.lastAddedApp[appID].appName!)..."
+                                                self.installDircCollectionView(id: appID)
+                                                
+            })
+            
+            let resignAction = CFAlertAction(title: "تعديل وتكرار",
+                                              style: .Default,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#1E76F3"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                self.setAppNameCollectionView(appID: appID)
+            })
+                
+                
+                
+            
+            let cancelAction = CFAlertAction(title: "اغلاق",
+                                             style: .Cancel,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#dddddd"),
+                                              textColor: nil,
+                                              handler: { (action) in
+                                                print("Button with title '" + action.title! + "' tapped")
+            })
+            
+            // Add Action Button Into Alert
+            alertController.addAction(installAction)
+            alertController.addAction(resignAction)
+            alertController.addAction(cancelAction)
+
+            // Present Alert View Controller
+                self.present(alertController, animated: true, completion: nil)
         }
-        alert.addAction(title: "Done", style: .cancel)
-        alert.show()
+    }
+    
+    func setAppName(appID: Int){
+        DispatchQueue.main.async {
+           let appearance = SCLAlertView.SCLAppearance(
+               kTitleFont: UIFont(name: "DINNextLTArabic-Medium", size: 20)!,
+               kTextFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+               kButtonFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+               showCloseButton: true
+           )
+           // Add a text field
+            let alert = SCLAlertView(appearance: appearance)
+            let appName = alert.addTextField("اسم التطبيق (اختياري)")
+            let appNumber = alert.addTextField("عدد نسخ التكرار, اعلى حد 5")
+            alert.addButton("تكرار") {
+               if appNumber.text != nil && appNumber.text != ""
+               {
+                // MARK: - Prepare Url Install
+                let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                loadingNotification.mode = MBProgressHUDMode.indeterminate
+                loadingNotification.label.text = "جاري تكرار وتوقيع التطبيق..."
+                
+                let appNameNew = appName.text == nil ? "" : appName.text
+                HomeViewModel.bduplicationApp(appID: HomeViewModel.randomApp[appID].appID!, appName: appNameNew!, appBundle: "", appNumber: appNumber.text!){
+                    statusResign, resign in
+                    self.hideAlert()
+                    let appearanceins = SCLAlertView.SCLAppearance(
+                        kTitleFont: UIFont(name: "DINNextLTArabic-Medium", size: 20)!,
+                        kTextFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                        kButtonFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                        showCloseButton: true,
+                        shouldAutoDismiss: false
+                    )
+                    let alertResign = SCLAlertView(appearance: appearanceins)
+                    var numberApp = 0
+                    for resignItem in HomeViewModel.urlResignApp {
+                        numberApp += 1
+                        alertResign.addButton("تحميل النسحة رقم \(numberApp)"){
+                            let encryptedUDID = Cypto.getHash(UserDefaults.standard.getUserUDID())
+                            guard let url = URL(string: Config.installAppUrl + "resign/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)/" + "\(resignItem)") else {
+                                 return
+                            }
+                            if UIApplication.shared.canOpenURL(url) {
+                                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                        }
+                    }
+                    alertResign.showSuccess("تم توقيع \(appNameNew!)", subTitle: "الرجاء تحميل جميع النسخ لانه سيتم حذفه بعد نصف ساعة", closeButtonTitle: "اغلاق")
+                    
+                }
+               }else{
+                self.serverMessage(status: false, message: "الرجاء تحديد عدد النسخ التكرار")
+               }
+           }
+            alert.showCustom("تعديل وتكرار التطبيق", subTitle: "يمكنك تعديل اسم التطبيق ومعرف التطبيق وتكرار التطبيق.", color: UIColor(hex: "#32385C"), icon: UIImage(named: "resignOutAppIcon")!, closeButtonTitle: "اغلاق")
+       }
     }
     
     
+    func setAppNameCollectionView(appID: Int){
+        DispatchQueue.main.async {
+           let appearance = SCLAlertView.SCLAppearance(
+               kTitleFont: UIFont(name: "DINNextLTArabic-Medium", size: 20)!,
+               kTextFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+               kButtonFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+               showCloseButton: true
+           )
+           // Add a text field
+            let alert = SCLAlertView(appearance: appearance)
+            let appName = alert.addTextField("اسم التطبيق (اختياري)")
+            let appNumber = alert.addTextField("عدد نسخ التكرار, اعلى حد 5")
+            alert.addButton("تكرار") {
+               if appNumber.text != nil && appNumber.text != ""
+               {
+                // MARK: - Prepare Url Install
+                let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+                loadingNotification.mode = MBProgressHUDMode.indeterminate
+                loadingNotification.label.text = "جاري تكرار وتوقيع التطبيق..."
+                
+                let appNameNew = appName.text == nil ? "" : appName.text
+                HomeViewModel.bduplicationApp(appID: HomeViewModel.lastAddedApp[appID].appID!, appName: appNameNew!, appBundle: "", appNumber: appNumber.text!){
+                    statusResign, resign in
+                    self.hideAlert()
+                    let appearanceins = SCLAlertView.SCLAppearance(
+                        kTitleFont: UIFont(name: "DINNextLTArabic-Medium", size: 20)!,
+                        kTextFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                        kButtonFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                        showCloseButton: true,
+                        shouldAutoDismiss: false
+                    )
+                    let alertResign = SCLAlertView(appearance: appearanceins)
+                    var numberApp = 0
+                    for resignItem in HomeViewModel.urlResignApp {
+                        numberApp += 1
+                        alertResign.addButton("تحميل النسحة رقم \(numberApp)"){
+                            let encryptedUDID = Cypto.getHash(UserDefaults.standard.getUserUDID())
+                            guard let url = URL(string: Config.installAppUrl + "resign/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)/" + "\(resignItem)") else {
+                                 return
+                            }
+                            if UIApplication.shared.canOpenURL(url) {
+                                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                        }
+                    }
+                    alertResign.showSuccess("تم توقيع \(appNameNew!)", subTitle: "الرجاء تحميل جميع النسخ لانه سيتم حذفه بعد نصف ساعة", closeButtonTitle: "اغلاق")
+                    
+                }
+               }else{
+                self.serverMessage(status: false, message: "الرجاء تحديد عدد النسخ التكرار")
+               }
+           }
+            alert.showCustom("تعديل وتكرار التطبيق", subTitle: "يمكنك تعديل اسم التطبيق ومعرف التطبيق وتكرار التطبيق.", color: UIColor(hex: "#32385C"), icon: UIImage(named: "resignOutAppIcon")!, closeButtonTitle: "اغلاق")
+       }
+    }
+  
     func downloadFromUrl(){
              DispatchQueue.main.async {
-                let alert = UIAlertController(style: .actionSheet, title: "التحميل من خارج المتجر", message: "قم بلصق او كتابة رابط التطبيق وعليك التاكد من صحة الرابط قبل تحميلة")
-                let config: TextField.Config = { textField in
-                textField.becomeFirstResponder()
-                textField.textColor = .white
-                textField.placeholder = "مثال: example.com/youtube.ipa"
-                textField.leftViewPadding = 12
-                textField.layer.borderWidth = 1
-                textField.layer.cornerRadius = 8
-                textField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
-                textField.backgroundColor = nil
-                textField.keyboardAppearance = .default
-                textField.keyboardType = .default
-                textField.isSecureTextEntry = false
-                textField.returnKeyType = .done
-                textField.textAlignment = .right
-                textField.action { textField in
-                    // validation and so on
-                    print(textField.text)
-                }
-            }
-            alert.addOneTextField(configuration: config)
-            alert.addAction(title: "OK", style: .cancel) {
-                action in
-                
+                let appearance = SCLAlertView.SCLAppearance(
+                    kTitleFont: UIFont(name: "DINNextLTArabic-Medium", size: 20)!,
+                    kTextFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                    kButtonFont: UIFont(name: "DINNextLTArabic-Regular", size: 14)!,
+                    showCloseButton: true
+                )
+                // Add a text field
+                let alert = SCLAlertView(appearance: appearance)
+                let txt = alert.addTextField("مثال: example.com/youtube.ipa")
+                alert.addButton("تحميل") {
+                    if txt.text != nil
+                    {
                         // MARK: - Prepare Url Install
                         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
                         loadingNotification.mode = MBProgressHUDMode.indeterminate
-                        loadingNotification.label.text = "جاري تحميل وتوقيع. وقد يستغرق بعض الوقت"
+                        loadingNotification.label.text = "جاري تحميل وتوقيع التطبيق..."
+                        
+                        HomeViewModel.downloadFormUrl(ipaURL: txt.text!){
+                            statusResign, resignURL in
+                            if statusResign == true {
+                                let encryptedUDID = Cypto.getHash(UserDefaults.standard.getUserUDID())
+                                print(Config.installAppUrl + "resign/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)/" + "\(resignURL!)")
+                                guard let url = URL(string: Config.installAppUrl + "resign/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)/" + "\(resignURL!)") else {
+                                     return
+                                }
+                                if UIApplication.shared.canOpenURL(url) {
+                                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                }
+                                self.hideAlert()
+                            }
+                        }
 
-            }
-            alert.show()
+                    }
                 }
+                alert.showCustom("التحميل من خارج المتجر", subTitle: "قم بلصق او كتابة رابط التطبيق وعليك التاكد من صحة الرابط قبل تحميلة", color: UIColor(hex: "#32385C"), icon: UIImage(named: "resignOutAppIcon")!, closeButtonTitle: "اغلاق")
+            }
     }
+}
+
+
+extension HomeView {
+        
+    func loadingAlert() {
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
+        loadingNotification.label.text = "الرجاء الانتظار..."
+    }
+    
+    func hideAlert() {
+        MBProgressHUD.hide(for: self.view, animated: true)
+    }
+    
+    
+    func serverMessage(status: Bool, message: String) {
+        MBProgressHUD.hide(for: self.view, animated: true)
+        if(status == false){
+            DispatchQueue.main.async {
+            // Create Alet View Controller
+            let alertController = CFAlertViewController(title: "تنبية!",
+                                                        message: message,
+                                                        textAlignment: .right,
+                                                        preferredStyle: .notification,
+                                                        didDismissAlertHandler: nil)
+            
+            let cancelAction = CFAlertAction(title: "اغلاق",
+                                             style: .Cancel,
+                                              alignment: .justified,
+                                              backgroundColor: UIColor(hex: "#dddddd"),
+                                              textColor: nil,
+                                              handler: { (action) in })
+            
+            alertController.addAction(cancelAction)
+
+            // Present Alert View Controller
+            self.present(alertController, animated: true, completion: nil)
+        }
+        }else{
+            performSegue(withIdentifier: "openHome", sender: nil)
+        }
+    }
+}
+
+extension HomeView {
+        
+        func installDirc(id appID: Int) {
+            let encryptedUDID = Cypto.getHash(UserDefaults.standard.getUserUDID())
+            guard let url = URL(string: Config.installAppUrl + "\(HomeViewModel.randomApp[appID].appID!)/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)") else {
+                 return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            
+            hideAlert()
+        }
+    
+    func installDircCollectionView(id appID: Int) {
+        let encryptedUDID = Cypto.getHash(UserDefaults.standard.getUserUDID())
+        guard let url = URL(string: Config.installAppUrl + "\(HomeViewModel.lastAddedApp[appID].appID!)/" + "\(UserDefaults.standard.getUserUDID())/" + "\(encryptedUDID)") else {
+             return
+        }
+
+        if UIApplication.shared.canOpenURL(url) {
+             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
+        hideAlert()
+    }
+    
+
 }

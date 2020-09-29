@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "ipawLogo.png",
+      "filename" : "WhatsApp Image 2020-09-22 at 10.30.37 PM.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ipawLogo@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ipawLogo@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

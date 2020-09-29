@@ -1,24 +1,42 @@
 PODS:
+  - Alamofire (5.1.0)
   - CFAlertViewController (3.1)
   - MBProgressHUD (1.2.0)
   - RLBAlertsPickers (1.1.2)
+  - SCLAlertView (0.8)
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - CFAlertViewController
   - MBProgressHUD
   - RLBAlertsPickers
+  - SCLAlertView
+  - SDWebImage
+  - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - CFAlertViewController
     - MBProgressHUD
     - RLBAlertsPickers
+    - SCLAlertView
+    - SDWebImage
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   CFAlertViewController: a27cf0512d0fa9ef6a3b966862039c295fb0ef69
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   RLBAlertsPickers: 2548943b0cb16620904cbd926a645362d1b43963
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: f47a1270185e5d0fced1f6a93d7f7be60b97d980
+PODFILE CHECKSUM: 0c1cfd92f01c3e5508a88b4ad0806ed4c21eafa9
 
 COCOAPODS: 1.9.1

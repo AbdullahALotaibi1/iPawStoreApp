@@ -30,6 +30,15 @@
 		B894E6662510A67000271E51 /* AppsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E6652510A67000271E51 /* AppsModel.swift */; };
 		B894E66925122F2F00271E51 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E66825122F2F00271E51 /* SettingsView.swift */; };
 		B894E66C25123DF400271E51 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894E66B25123DF400271E51 /* DashboardView.swift */; };
+		B8B1D7692518D9B8001BB54C /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7682518D9B8001BB54C /* config.swift */; };
+		B8B1D7802518E378001BB54C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D77F2518E378001BB54C /* LoginViewModel.swift */; };
+		B8B1D7832518E406001BB54C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7822518E406001BB54C /* LoginModel.swift */; };
+		B8B1D7862518EC0B001BB54C /* CommonCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7852518EC0B001BB54C /* CommonCrypto.swift */; };
+		B8B1D7912518FEA4001BB54C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7902518FEA4001BB54C /* HomeViewModel.swift */; };
+		B8B1D7942519011D001BB54C /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7932519011D001BB54C /* HomeModel.swift */; };
+		B8B1D7DF251A8A84001BB54C /* MyAppsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7DE251A8A84001BB54C /* MyAppsModel.swift */; };
+		B8B1D7E3251A997B001BB54C /* SettingsModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7E2251A997B001BB54C /* SettingsModelView.swift */; };
+		B8B1D7E6251A99B4001BB54C /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B1D7E5251A99B4001BB54C /* SettingsModel.swift */; };
 		B8E552BE2512A5CE00215441 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E552BD2512A5CE00215441 /* LoginView.swift */; };
 		B8E552C02512AB6E00215441 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E552BF2512AB6E00215441 /* UserDefaults.swift */; };
 		B8FBC724250EEEEB0028441E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBC723250EEEEB0028441E /* AppDelegate.swift */; };
@@ -62,6 +71,15 @@
 		B894E6652510A67000271E51 /* AppsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsModel.swift; sourceTree = "<group>"; };
 		B894E66825122F2F00271E51 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B894E66B25123DF400271E51 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B8B1D7682518D9B8001BB54C /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		B8B1D77F2518E378001BB54C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B8B1D7822518E406001BB54C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		B8B1D7852518EC0B001BB54C /* CommonCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCrypto.swift; sourceTree = "<group>"; };
+		B8B1D7902518FEA4001BB54C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B8B1D7932519011D001BB54C /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		B8B1D7DE251A8A84001BB54C /* MyAppsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppsModel.swift; sourceTree = "<group>"; };
+		B8B1D7E2251A997B001BB54C /* SettingsModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelView.swift; sourceTree = "<group>"; };
+		B8B1D7E5251A99B4001BB54C /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		B8E552BD2512A5CE00215441 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8E552BF2512AB6E00215441 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		B8FBC720250EEEEB0028441E /* iPawStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPawStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +124,7 @@
 				B841BE20250F013A00D9B70C /* UIColor.swift */,
 				B894E6632510A3F500271E51 /* UIImage.swift */,
 				B8E552BF2512AB6E00215441 /* UserDefaults.swift */,
+				B8B1D7852518EC0B001BB54C /* CommonCrypto.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -253,6 +272,11 @@
 		B8FBC738250EF0FD0028441E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B8B1D7682518D9B8001BB54C /* config.swift */,
+				B8B1D77F2518E378001BB54C /* LoginViewModel.swift */,
+				B8B1D7902518FEA4001BB54C /* HomeViewModel.swift */,
+				B8B1D7DE251A8A84001BB54C /* MyAppsModel.swift */,
+				B8B1D7E2251A997B001BB54C /* SettingsModelView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -261,6 +285,9 @@
 			isa = PBXGroup;
 			children = (
 				B894E6652510A67000271E51 /* AppsModel.swift */,
+				B8B1D7822518E406001BB54C /* LoginModel.swift */,
+				B8B1D7932519011D001BB54C /* HomeModel.swift */,
+				B8B1D7E5251A99B4001BB54C /* SettingsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -449,22 +476,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				B841BE36250F23CC00D9B70C /* HeaderOfRandomAppsCell.swift in Sources */,
+				B8B1D7DF251A8A84001BB54C /* MyAppsModel.swift in Sources */,
+				B8B1D7E3251A997B001BB54C /* SettingsModelView.swift in Sources */,
+				B8B1D7912518FEA4001BB54C /* HomeViewModel.swift in Sources */,
 				B841BE1D250EFB9800D9B70C /* UIView.swift in Sources */,
 				B8FBC73F250EF1EA0028441E /* HomeView.swift in Sources */,
 				B8FBC724250EEEEB0028441E /* AppDelegate.swift in Sources */,
 				B8FBC726250EEEEB0028441E /* SceneDelegate.swift in Sources */,
+				B8B1D7832518E406001BB54C /* LoginModel.swift in Sources */,
 				B8E552C02512AB6E00215441 /* UserDefaults.swift in Sources */,
 				B841BE2B250F0AA700D9B70C /* LastAddedAppsCell.swift in Sources */,
 				B841BE26250F032D00D9B70C /* ButtonResignOutAppCell.swift in Sources */,
+				B8B1D7E6251A99B4001BB54C /* SettingsModel.swift in Sources */,
 				B894E66C25123DF400271E51 /* DashboardView.swift in Sources */,
 				B894E66925122F2F00271E51 /* SettingsView.swift in Sources */,
+				B8B1D7862518EC0B001BB54C /* CommonCrypto.swift in Sources */,
 				B894E6662510A67000271E51 /* AppsModel.swift in Sources */,
 				B894E66225109B6E00271E51 /* MyAppsView.swift in Sources */,
 				B841BE31250F0CA700D9B70C /* LastAddedAppsCollectionCell.swift in Sources */,
 				B894E6642510A3F500271E51 /* UIImage.swift in Sources */,
 				B841BE21250F013A00D9B70C /* UIColor.swift in Sources */,
+				B8B1D7692518D9B8001BB54C /* config.swift in Sources */,
 				B8E552BE2512A5CE00215441 /* LoginView.swift in Sources */,
+				B8B1D7802518E378001BB54C /* LoginViewModel.swift in Sources */,
 				B894E65E2510911200271E51 /* ListAppCell.swift in Sources */,
+				B8B1D7942519011D001BB54C /* HomeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

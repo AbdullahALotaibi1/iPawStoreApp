@@ -29,10 +29,14 @@ class ListAppCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func update(cell: App) {
-        appNameOutLet.text = cell.appName
-        appIconOutLet.image = cell.appIcon
+        
+
+    func update(app: Application){
+        let imgUrl = URL(string: Config.url + app.appIcon!)
+        appIconOutLet?.sd_setImage(with: imgUrl!, placeholderImage: UIImage(named: "ipawLogo"))
+        appNameOutLet.text = app.appName
+        appDescOutLet.text = app.appBundle
+        appVersionOutLet.text = "الاصدار: \(app.appVersion!) • \(app.appSize!)"
         bgViewOutLet.backgroundColor = (appIconOutLet.image?.averageColor)?.withAlphaComponent(0.35)
         buttonOptionOutLet.layer.backgroundColor = appIconOutLet.image?.averageColor?.cgColor
     }

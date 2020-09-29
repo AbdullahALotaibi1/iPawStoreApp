@@ -9,4 +9,9 @@ target 'iPawStore' do
      pod 'CFAlertViewController'
      pod 'MBProgressHUD'
      pod 'RLBAlertsPickers'
+     pod 'Alamofire'
+     pod 'SwiftyJSON'
+     pod 'SDWebImage'
+     pod 'SCLAlertView'
+     
 end
